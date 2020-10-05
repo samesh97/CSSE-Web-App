@@ -48,7 +48,7 @@ class App extends React.Component{
                             </div>
 
                             <div className="register_btn_container">
-                                <button type="submit" className="btn btn-primary loginbtn" onClick={this.login}>LOGIN</button>
+                                <button type="submit" className="btn btn-primary loginbtn" onClick={this.login}>Login</button>
                             </div>
 
 
@@ -61,11 +61,7 @@ class App extends React.Component{
             </div>
         );
     }
-    callMe = () =>{
-        const ref = firebase.database().ref("Hello");
-        ref.set()
 
-    }
     clearInputFields = () => {
         this.setState({
             companyEmail : '',
@@ -88,6 +84,26 @@ class App extends React.Component{
         }
 
         const ref = firebase.database().ref("Companies");
+        ref.once('value',(snapshot) => {
+
+            const companyObjectList = snapshot.val();
+
+            for(let id in companyObjectList)
+            {
+                let email = companyObjectList[id].companyEmail;
+                let pw = companyObjectList[id].companyPassword;
+
+                if(this.state.companyEmail === email && this.state.companyPassword === pw)
+                {
+                    console.log("Login success");
+                }
+                else
+                {
+                    console.log("Login failed");
+                }
+            }
+
+        });
     }
 
 }

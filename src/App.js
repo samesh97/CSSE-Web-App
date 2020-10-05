@@ -38,7 +38,7 @@ class App extends React.Component{
                           {(
                               <Nav.Link href="/login" className="header-link">
                                 {/*<FontAwesomeIcon icon={faAddressBook} className="icon mr-1" />*/}
-                                <strong className="navLinkColor">login</strong>
+                                <strong className="navLinkColor">Login</strong>
                               </Nav.Link>
                           )}
                             {(

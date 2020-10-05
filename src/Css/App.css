@@ -31,7 +31,14 @@ body {
 }
 .navLinkColor
 {
+    color: #e25c2d;
+    font-size: 17px;
+    font-family: Arial;
+}
+.navLinkColor:hover
+{
     color: white;
+
 }
 .navbarcolor
 {
@@ -46,6 +53,8 @@ body {
     margin-right: auto;
     margin-left: auto;
     background-color: #F1F1F1;
+    font-family: Arial;
+    font-size: 14px;
 }
 .inputfirst
 {
@@ -55,6 +64,8 @@ body {
     margin-left: auto;
     margin-top: 30px;
     background-color: #F1F1F1;
+    font-family: Arial;
+    font-size: 14px;
 }
 #register_root
 {
@@ -98,6 +109,8 @@ body {
     margin-left: auto;
     margin-top: 70px;
     background-color: #F1F1F1;
+    font-family: Arial;
+    font-size: 14px;
 }
 .loginbtn
 {
@@ -106,6 +119,7 @@ body {
     background-color: #e25c2d;
     margin-top: 20px;
     border: none;
+    font-family: Arial;
 
 }
 .loginbtn:hover

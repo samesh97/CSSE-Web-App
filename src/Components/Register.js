@@ -171,10 +171,22 @@ class App extends React.Component{
             companyPhone: this.state.companyPhone
         };
 
-        ref.set(company);
-        alert("Success");
 
-        this.clearInputFields();
+
+
+        ref.set(company, function(error) {
+            if (error)
+            {
+                alert("An error occurred!" + error.message);
+            }
+            else
+            {
+                alert("Registration Success");
+                window.location.href = '/login';
+            }
+        })
+
+
     }
 
 }
