@@ -94,6 +94,12 @@ class App extends React.Component
                 });
 
             }
+            if(snapshot.numChildren() === 0)
+            {
+                this.setState({
+                    isLoading : false
+                })
+            }
 
         })
     }
