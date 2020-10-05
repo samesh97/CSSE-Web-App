@@ -1,21 +1,33 @@
 body {
     background-image: url("hello.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: auto;
+    min-height: 700px;
 }
+.registerbtn
+{
+    height: 55px;
+    width: 100%;
+    background-color: #e25c2d;
+    border: none;
 
+}
+.registerbtn:hover
+{
+    background-color: #e25c2d;
+    border: none;
+}
 #container
 {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    background: rgba(255,255,255,0.3);
-    padding: 100px;
-    border-radius: 30px;
+
 
 }
 .logo
 {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
 }
 .navLinkColor
 {
@@ -26,4 +38,78 @@ body {
     /*background-color: #3899f9;*/
     /*opacity: 0.5;*/
     background: rgba(0,0,0,0.0);
+}
+.input
+{
+    height: 45px;
+    width: 75%;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #F1F1F1;
+}
+.inputfirst
+{
+    height: 45px;
+    width: 75%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 30px;
+    background-color: #F1F1F1;
+}
+#register_root
+{
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(255,255,255,0.7);
+    border-radius: 30px;
+    margin-bottom: 100px;
+
+}
+.register_image
+{
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+.register_btn_container
+{
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 40px;
+}
+
+#login_root
+{
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(255,255,255,0.7);
+    border-radius: 30px;
+    padding-bottom: 70px;
+    margin-bottom: 100px;
+
+}
+.inputfirstlogin
+{
+    height: 45px;
+    width: 75%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 70px;
+    background-color: #F1F1F1;
+}
+.loginbtn
+{
+    height: 55px;
+    width: 100%;
+    background-color: #e25c2d;
+    margin-top: 20px;
+    border: none;
+
+}
+.loginbtn:hover
+{
+    background-color: #e25c2d;
+    border: none;
 }

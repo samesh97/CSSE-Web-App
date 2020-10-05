@@ -9,6 +9,7 @@ import { Navbar, Nav} from 'react-bootstrap';
 import Register from './Components/Register';
 import icon from './Images/icon.png';
 import Home from  './Components/Home';
+import Login from './Components/Login';
 
 
 class App extends React.Component{
@@ -55,7 +56,7 @@ class App extends React.Component{
 
           <Route path={'/'} exact strict component={Home} />
           {/*<Route path={'/product/:pid'} exact strict component={ProductDetailsView} />*/}
-          {/*<Route path={'/login'} exact strict component={Register} />*/}
+          <Route path={'/login'} exact strict component={Login} />
           <Route path={'/register'} exact strict component={Register} />
           {/*<Route path={'/wishList'} exact strict component={WishList} />*/}
           {/*<Route path={'/cart'} exact strict component={Cart} />*/}

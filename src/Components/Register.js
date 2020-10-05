@@ -4,6 +4,8 @@ import firebase from "../Database/FirebaseConfig";
 import Navbar from "react-bootstrap";
 import '../Css/App.css';
 
+import register_image from '../Images/hello.png';
+
 class App extends React.Component{
 
     constructor(props) {
@@ -24,64 +26,75 @@ class App extends React.Component{
         return (
             <div className="App">
                 <div  className="w-100">
-                    <form className="w-50" id="container">
+                    <form className="w-50" id="register_root">
 
-                        <div className="form-group">
-                            <input type="text"
-                                   className="form-control"
-                                   id="exampleInputEmail1"
-                                   aria-describedby="emailHelp"
-                                   placeholder="Company Name"
-                                   value={this.state.companyName}
-                                   onChange={ (e) => this.setState({companyName : e.target.value})}/>
-                        </div>
-                        <div className="form-group">
-                            <input type="email"
-                                   className="form-control"
-                                   id="exampleInputEmail1"
-                                   value={this.state.companyEmail}
-                                   aria-describedby="emailHelp"
-                                   placeholder="Company Email"
-                                   onChange={ (e) => this.setState({companyEmail : e.target.value})}/>
-                        </div>
-                        <div className="form-group">
-                            <input type="phone"
-                                   className="form-control"
-                                   id="exampleInputEmail1"
-                                   aria-describedby="emailHelp"
-                                   placeholder="Company Phone"
-                                   value={this.state.companyPhone}
-                                   onChange={ (e) => this.setState({companyPhone : e.target.value})}/>
-                        </div>
-                        <div className="form-group">
-                            <input type="text"
-                                   className="form-control"
-                                   id="exampleInputEmail1"
-                                   aria-describedby="emailHelp"
-                                   placeholder="Company Address"
-                                   value={this.state.companyAddress}
-                                   onChange={ (e) => this.setState({companyAddress : e.target.value})}/>
-                        </div>
-                        <div className="form-group">
-                            <input type="password"
-                                   className="form-control"
-                                   id="exampleInputEmail1"
-                                   aria-describedby="emailHelp"
-                                   placeholder="Password"
-                                   value={this.state.companyPassword}
-                                   onChange={ (e) => this.setState({companyPassword : e.target.value})}/>
-                        </div>
-                        <div className="form-group">
-                            <input type="password"
-                                   className="form-control"
-                                   id="exampleInputEmail1"
-                                   aria-describedby="emailHelp"
-                                   placeholder="Re-type Password"
-                                   value={this.state.companyRetypedPassword}
-                                   onChange={ (e) => this.setState({companyRetypedPassword : e.target.value})}/>
+                           <img src={register_image} className="register_image"/>
+
+
+                        <div  id="container">
+                            <div className="form-group">
+                                <input type="text"
+                                       className="form-control inputfirstlogin"
+                                       id="exampleInputEmail1"
+                                       aria-describedby="emailHelp"
+                                       placeholder="Company Name"
+                                       value={this.state.companyName}
+                                       onChange={ (e) => this.setState({companyName : e.target.value})}/>
+                            </div>
+                            <div className="form-group">
+                                <input type="email"
+                                       className="form-control input"
+                                       id="exampleInputEmail1"
+                                       value={this.state.companyEmail}
+                                       aria-describedby="emailHelp"
+                                       placeholder="Company Email"
+                                       onChange={ (e) => this.setState({companyEmail : e.target.value})}/>
+                            </div>
+                            <div className="form-group">
+                                <input type="phone"
+                                       className="form-control input"
+                                       id="exampleInputEmail1"
+                                       aria-describedby="emailHelp"
+                                       placeholder="Company Phone"
+                                       value={this.state.companyPhone}
+                                       onChange={ (e) => this.setState({companyPhone : e.target.value})}/>
+                            </div>
+                            <div className="form-group">
+                                <input type="text"
+                                       className="form-control input"
+                                       id="exampleInputEmail1"
+                                       aria-describedby="emailHelp"
+                                       placeholder="Company Address"
+                                       value={this.state.companyAddress}
+                                       onChange={ (e) => this.setState({companyAddress : e.target.value})}/>
+                            </div>
+                            <div className="form-group">
+                                <input type="password"
+                                       className="form-control input"
+                                       id="exampleInputEmail1"
+                                       aria-describedby="emailHelp"
+                                       placeholder="Password"
+                                       value={this.state.companyPassword}
+                                       onChange={ (e) => this.setState({companyPassword : e.target.value})}/>
+                            </div>
+                            <div className="form-group">
+                                <input type="password"
+                                       className="form-control input"
+                                       id="exampleInputEmail1"
+                                       aria-describedby="emailHelp"
+                                       placeholder="Re-type Password"
+                                       value={this.state.companyRetypedPassword}
+                                       onChange={ (e) => this.setState({companyRetypedPassword : e.target.value})}/>
+                            </div>
+
+                            <div className="register_btn_container">
+                                <button type="submit" className="btn btn-primary registerbtn" onClick={this.register}>Register</button>
+                            </div>
+
+
                         </div>
 
-                        <button type="submit" className="btn btn-primary w-100" onClick={this.register}>Register</button>
+
 
                     </form>
                 </div>
