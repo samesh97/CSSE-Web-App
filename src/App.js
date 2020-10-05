@@ -12,6 +12,10 @@ import Home from  './Components/Home';
 import Login from './Components/Login';
 import OrdersPage from './Components/Orders';
 import SuppliersPage from './Components/Suppliers';
+import UpdateSuppliers from './Components/UpdateSuppliers';
+
+
+
 
 
 import LoginState from './Config/LoginState';
@@ -86,7 +90,7 @@ class App extends React.Component{
           />
 
           <Route path={'/'} exact strict component={Home} />
-          {/*<Route path={'/product/:pid'} exact strict component={ProductDetailsView} />*/}
+          <Route path={'/supplier/:id'} exact strict component={UpdateSuppliers} />
           <Route path={'/login'} exact strict component={Login} />
           <Route path={'/register'} exact strict component={Register} />
           <Route path={'/orders'} exact strict component={OrdersPage} />

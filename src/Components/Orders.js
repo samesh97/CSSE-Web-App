@@ -5,13 +5,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import firebase from "../Database/FirebaseConfig";
 import LoginState from "../Config/LoginState";
 
+import LoadingOverlay from 'react-loading-overlay';
+
 class App extends React.Component
 {
     constructor(props) {
         super(props);
 
         this.state = {
-          ordersList : []
+          ordersList : [],
+            isLoading : true
         };
 
 
@@ -28,6 +31,8 @@ class App extends React.Component
 
             return (
                 <div className="w-100">
+
+
                     <div className="card card_body">
                         <div className="card-body">
                             <h5 className="card-title">{item.supplierName}</h5>
@@ -35,7 +40,7 @@ class App extends React.Component
                             <p className="card-text order_p_below">{"Contact No - " + item.supplierPhone}</p>
                             <p className="card-text order_p_below">{"Manager Name - " + item.supplierManagerName}</p>
                             <p className="card-text order_p_below">{"Type - " + item.supplierType}</p>
-                            <a className="btn btn-primary order_edit_update_btn">Edit</a>
+                            <a className="btn btn-primary order_edit_update_btn" onClick={() => this.updateItem(item.supplierId)}>Edit</a>
                             <a className="btn btn-danger ml-2 order_edit_update_btn" onClick={() => this.deleteItem(item.supplierId)}>Delete</a>
                         </div>
                     </div>
@@ -46,7 +51,22 @@ class App extends React.Component
 
 
         return(
-            <div className="orders_container">{listItems}</div>
+            <div>
+
+                    {this.state.isLoading && (
+                        <div className="loading_screen">
+                            <div className="loader"/>
+                        </div>
+                    )}
+
+
+                {!this.state.isLoading &&  <div className="orders_container">{listItems}</div>
+                }
+
+
+
+            </div>
+
 
         );
     }
@@ -69,7 +89,8 @@ class App extends React.Component
             {
                 newList.push(list[i]);
                 this.setState({
-                    ordersList : newList
+                    ordersList : newList,
+                    isLoading : false
                 });
 
             }
@@ -89,6 +110,11 @@ class App extends React.Component
             {
                 alert("An error occurred!");
             });
+    }
+
+    updateItem = (supplierId) =>
+    {
+       window.location.href = "/supplier/" + supplierId;
     }
 }
 export default App;
