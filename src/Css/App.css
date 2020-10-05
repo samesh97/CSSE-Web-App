@@ -170,3 +170,13 @@ body {
     margin-right: auto;
 
 }
+.add_suppliers_btn
+{
+    float: right;
+    margin-right: 20px;
+    background-color: #e25c2d;
+}
+.add_product_first_input
+{
+    margin-top: 30px;
+}

@@ -10,9 +10,10 @@ import Register from './Components/Register';
 import icon from './Images/icon.png';
 import Home from  './Components/Home';
 import Login from './Components/Login';
-import OrdersPage from './Components/Orders';
 import SuppliersPage from './Components/Suppliers';
 import UpdateSuppliers from './Components/UpdateSuppliers';
+import AddSuppliers from './Components/AddSuppliers';
+import AddProducts from './Components/AddProducts';
 
 
 
@@ -65,7 +66,7 @@ class App extends React.Component{
                                 </Nav.Link>
                             )}
                             { LoginState.isLoggedIn() && (
-                                <Nav.Link className="header-link" href="">
+                                <Nav.Link className="header-link" href="/products/add">
                                     {/*<FontAwesomeIcon icon={faAddressBook} className="icon mr-1" />*/}
                                     <strong className="navLinkColor">Products</strong>
                                 </Nav.Link>
@@ -91,19 +92,12 @@ class App extends React.Component{
 
           <Route path={'/'} exact strict component={Home} />
           <Route path={'/supplier/:id'} exact strict component={UpdateSuppliers} />
+            <Route path={'/suppliers/add'} exact strict component={AddSuppliers} />
+            <Route path={'/products/add'} exact strict component={AddProducts} />
           <Route path={'/login'} exact strict component={Login} />
           <Route path={'/register'} exact strict component={Register} />
-          <Route path={'/orders'} exact strict component={OrdersPage} />
+          {/*<Route path={'/orders'} exact strict component={OrdersPage} />*/}
           <Route path={'/suppliers'} exact strict component={SuppliersPage} />
-          {/*<Route path={'/wishList'} exact strict component={WishList} />*/}
-          {/*<Route path={'/cart'} exact strict component={Cart} />*/}
-          {/*<Route path={'/categories'} exact strict component={AdminCategoryView} />*/}
-          {/*<Route path={'/products'} exact strict component={ManagerView} />*/}
-          {/*<Route path={'/products/create'} exact strict component={ProductCreateAndUpdate} />*/}
-          {/*<Route path={'/products/update/:pid'} exact strict component={ProductCreateAndUpdate} />*/}
-          {/*<Route path={'/error'} exact strict component={Error} />*/}
-          {/*<Route path={'/productByCategory/:cid'} exact strict component={Category} />*/}
-          {/*<Route path={'/register/manager'} exact strict component={RegisterManager} />*/}
         </Router>
     );
   }

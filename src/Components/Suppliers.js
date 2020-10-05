@@ -1,180 +1,134 @@
 import React from "react";
 
 import css from '../Css/App.css';
-import register_image from "../Images/hello.png";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import firebase from "../Database/FirebaseConfig";
-import LoginState from '../Config/LoginState';
+import LoginState from "../Config/LoginState";
+
+import LoadingOverlay from 'react-loading-overlay';
 
 class App extends React.Component
 {
     constructor(props) {
         super(props);
 
-        this.state ={
-            companyName : '',
-            companyEmail : '',
-            companyPhone : '',
-            companyAddress : '',
-            companyManagerName : '',
-            companyType : ''
+        this.state = {
+          ordersList : [],
+            isLoading : true
         };
+
+
     }
 
-
+    componentDidMount() {
+        this.getSupplierList();
+    }
     render() {
-        return(
-            <div className="App">
-                <div  className="w-100">
-                    <form className="w-50" id="register_root">
 
-                        <img src={register_image} className="register_image"/>
+        const listItems = this.state.ordersList.map(item => {
 
 
-                        <div  id="container">
-                            <div className="form-group">
-                                <input type="text"
-                                       className="form-control inputfirstlogin"
-                                       id="exampleInputEmail1"
-                                       aria-describedby="emailHelp"
-                                       value={this.state.companyName}
-                                       onChange={(e) => {this.setState({companyName : e.target.value})}}
-                                       placeholder="Company Name"/>
-                            </div>
-                            <div className="form-group">
-                                <input type="email"
-                                       className="form-control input"
-                                       id="exampleInputEmail1"
-                                       aria-describedby="emailHelp"
-                                       value={this.state.companyEmail}
-                                       onChange={(e) => {this.setState({companyEmail : e.target.value})}}
-                                       placeholder="Company Email"/>
-                            </div>
-                            <div className="form-group">
-                                <input type="text"
-                                       className="form-control input"
-                                       id="exampleInputEmail1"
-                                       aria-describedby="emailHelp"
-                                       value={this.state.companyAddress}
-                                       onChange={(e) => {this.setState({companyAddress : e.target.value})}}
-                                       placeholder="Company Address"/>
-                            </div>
-                            <div className="form-group">
-                                <input type="phone"
-                                       className="form-control input"
-                                       id="exampleInputEmail1"
-                                       aria-describedby="emailHelp"
-                                       value={this.state.companyPhone}
-                                       onChange={(e) => {this.setState({companyPhone : e.target.value})}}
-                                       placeholder="Contact Number"/>
-                            </div>
 
-                            <div className="form-group">
-                                <input type="text"
-                                       className="form-control input"
-                                       id="exampleInputEmail1"
-                                       aria-describedby="emailHelp"
-                                       value={this.state.companyManagerName}
-                                       onChange={(e) => {this.setState({companyManagerName : e.target.value})}}
-                                       placeholder="Manager Name"/>
-                            </div>
-
-                            <div className="form-group">
-                                <select name="type" id="type" className="form-control input" onChange={(e) => this.OnTypeSelected(e.target.value)}>
-                                    <option value="">Type</option>
-                                    <option value="Hardware">Hardware</option>
-                                    <option value="Paint Material">Paint Material</option>
-                                    <option value="Sand">Sand</option>
-                                    <option value="Cement">Cement</option>
-                                </select>
-                            </div>
+            return (
+                <div className="w-100">
 
 
-                            <div className="register_btn_container">
-                                <button type="submit" className="btn btn-primary registerbtn" onClick={(e) => this.addSupplier(e)}>Add Supplier</button>
-                            </div>
-
-
+                    <div className="card card_body">
+                        <div className="card-body">
+                            <h5 className="card-title">{item.supplierName}</h5>
+                            <p className="card-text">{"Email -" + item.supplierEmail}</p>
+                            <p className="card-text order_p_below">{"Contact No - " + item.supplierPhone}</p>
+                            <p className="card-text order_p_below">{"Manager Name - " + item.supplierManagerName}</p>
+                            <p className="card-text order_p_below">{"Type - " + item.supplierType}</p>
+                            <a className="btn btn-primary order_edit_update_btn" onClick={() => this.updateItem(item.supplierId)}>Edit</a>
+                            <a className="btn btn-danger ml-2 order_edit_update_btn" onClick={() => this.deleteItem(item.supplierId)}>Delete</a>
                         </div>
-
-
-
-                    </form>
+                    </div>
                 </div>
-            </div>
-        )
-    }
-    OnTypeSelected = (value) => {
-
-        this.setState({
-            companyType : value
-        });
-    }
-    addSupplier = (e) => {
-
-        e.preventDefault();
-        if(this.state.companyName === "")
-        {
-            alert("Please enter company name");
-            return
-        }
-        if(this.state.companyEmail === "")
-        {
-            alert("Please enter company email");
-            return
-        }
-        if(this.state.companyAddress === "")
-        {
-            alert("Please enter company address");
-            return
-        }
-        if(this.state.companyPhone === "")
-        {
-            alert("Please enter company phone number");
-            return
-        }
-        if(this.state.companyManagerName === "")
-        {
-            alert("Please enter company manager name");
-            return
-        }
-        if(this.state.companyType === "")
-        {
-            alert("Please enter company type");
-            return
-        }
-
-        let d = new Date();
-        let time = d.getMilliseconds();
-        let random = Math.floor(Math.random() * 10000000);
-        let key = time * random;
-
-        const ref = firebase.database().ref("Companies").child(LoginState.getCompanyId()).child("Suppliers").child(key);
-
-        let supplier = {
-            supplierId : key,
-            companyId : LoginState.getCompanyId(),
-            supplierName : this.state.companyName,
-            supplierEmail : this.state.companyEmail,
-            supplierAddress : this.state.companyAddress,
-            supplierPhone: this.state.companyPhone,
-            supplierManagerName : this.state.companyManagerName,
-            supplierType : this.state.companyType
-
-        };
-
-        ref.set(supplier, function(error) {
-            if (error)
-            {
-                alert("An error occurred!" + error.message);
-            }
-            else
-            {
-                alert("Supplier was successfully Added!");
-                window.location.href = '/suppliers';
-            }
+            )
         })
 
-    };
+
+
+        return(
+            <div>
+
+                    {this.state.isLoading && (
+                        <div className="loading_screen">
+                            <div className="loader"/>
+                        </div>
+                    )}
+
+                {!this.state.isLoading &&   <a className="btn btn-primary add_suppliers_btn" onClick={() => this.GoToAddSupplier()}>Add Suppliers</a>
+                }
+
+                {!this.state.isLoading &&  <div className="orders_container">{listItems}</div>
+                }
+
+
+
+            </div>
+
+
+        );
+    }
+
+    getSupplierList = () =>{
+
+        const ref = firebase.database().ref("Companies").child(LoginState.getCompanyId()).child("Suppliers");
+
+        let list = [];
+        list.push("hello");
+        // this.setState({
+        //             ordersList : list
+        //         });
+
+        ref.once('value',(snapshot) => {
+
+            const list = snapshot.val();
+            let newList = [];
+            for(let i in list)
+            {
+                newList.push(list[i]);
+                this.setState({
+                    ordersList : newList,
+                    isLoading : false
+                });
+
+            }
+            if(snapshot.numChildren() === 0)
+            {
+                this.setState({
+                    isLoading : false
+                })
+            }
+
+        })
+    }
+
+    deleteItem = (supplierId) => {
+        const ref = firebase.database().ref("Companies").child(LoginState.getCompanyId()).child("Suppliers").child(supplierId);
+        ref.remove()
+            .then(function()
+            {
+                alert("Deleted successfully!");
+                window.location.href = "/orders";
+            })
+            .catch(function(error)
+            {
+                alert("An error occurred!");
+            });
+    }
+
+    updateItem = (supplierId) =>
+    {
+       window.location.href = "/supplier/" + supplierId;
+    }
+
+    GoToAddSupplier() {
+
+        window.location.href = " /suppliers/add";
+
+    }
 }
 export default App;
