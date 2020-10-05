@@ -10,7 +10,9 @@ import Register from './Components/Register';
 import icon from './Images/icon.png';
 import Home from  './Components/Home';
 import Login from './Components/Login';
-import AccountantPage from './Components/AccountantPage';
+import OrdersPage from './Components/Orders';
+import SuppliersPage from './Components/Suppliers';
+
 
 import LoginState from './Config/LoginState';
 
@@ -45,7 +47,7 @@ class App extends React.Component{
                               </Nav.Link>
                           )}
                             { LoginState.isLoggedIn() && (
-                                <Nav.Link className="header-link" href="">
+                                <Nav.Link className="header-link" href="/suppliers">
                                     {/*<FontAwesomeIcon icon={faAddressBook} className="icon mr-1" />*/}
                                     <strong className="navLinkColor">Suppliers</strong>
                                 </Nav.Link>
@@ -79,7 +81,8 @@ class App extends React.Component{
           {/*<Route path={'/product/:pid'} exact strict component={ProductDetailsView} />*/}
           <Route path={'/login'} exact strict component={Login} />
           <Route path={'/register'} exact strict component={Register} />
-            <Route path={'/accountant'} exact strict component={AccountantPage} />
+          <Route path={'/orders'} exact strict component={OrdersPage} />
+          <Route path={'/suppliers'} exact strict component={SuppliersPage} />
           {/*<Route path={'/wishList'} exact strict component={WishList} />*/}
           {/*<Route path={'/cart'} exact strict component={Cart} />*/}
           {/*<Route path={'/categories'} exact strict component={AdminCategoryView} />*/}

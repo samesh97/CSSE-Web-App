@@ -99,7 +99,7 @@ class App extends React.Component{
                 {
                     LoginState.setUserLoggedIn(companyId,email);
                     alert("Login success");
-                    window.location.href = '/accountant';
+                    window.location.href = '/orders';
                 }
                 else
                 {
