@@ -36,7 +36,7 @@ class App extends React.Component
                             <p className="card-text order_p_below">{"Manager Name - " + item.supplierManagerName}</p>
                             <p className="card-text order_p_below">{"Type - " + item.supplierType}</p>
                             <a className="btn btn-primary order_edit_update_btn">Edit</a>
-                            <a className="btn btn-danger ml-2 order_edit_update_btn">Delete</a>
+                            <a className="btn btn-danger ml-2 order_edit_update_btn" onClick={() => this.deleteItem(item.supplierId)}>Delete</a>
                         </div>
                     </div>
                 </div>
@@ -75,6 +75,20 @@ class App extends React.Component
             }
 
         })
+    }
+
+    deleteItem = (supplierId) => {
+        const ref = firebase.database().ref("Companies").child(LoginState.getCompanyId()).child("Suppliers").child(supplierId);
+        ref.remove()
+            .then(function()
+            {
+                alert("Deleted successfully!");
+                window.location.href = "/orders";
+            })
+            .catch(function(error)
+            {
+                alert("An error occurred!");
+            });
     }
 }
 export default App;
