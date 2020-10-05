@@ -10,6 +10,9 @@ import Register from './Components/Register';
 import icon from './Images/icon.png';
 import Home from  './Components/Home';
 import Login from './Components/Login';
+import AccountantPage from './Components/AccountantPage';
+
+import LoginState from './Config/LoginState';
 
 
 class App extends React.Component{
@@ -35,13 +38,31 @@ class App extends React.Component{
                             {/*<FontAwesomeIcon icon={faHome} className="mr-1" />*/}
                             <strong className="navLinkColor">Home</strong>
                           </Nav.Link>
-                          {(
+                          { !LoginState.isLoggedIn() && (
                               <Nav.Link href="/login" className="header-link">
                                 {/*<FontAwesomeIcon icon={faAddressBook} className="icon mr-1" />*/}
                                 <strong className="navLinkColor">Login</strong>
                               </Nav.Link>
                           )}
-                            {(
+                            { LoginState.isLoggedIn() && (
+                                <Nav.Link className="header-link" href="">
+                                    {/*<FontAwesomeIcon icon={faAddressBook} className="icon mr-1" />*/}
+                                    <strong className="navLinkColor">Suppliers</strong>
+                                </Nav.Link>
+                            )}
+                            { LoginState.isLoggedIn() && (
+                                <Nav.Link className="header-link" href="">
+                                    {/*<FontAwesomeIcon icon={faAddressBook} className="icon mr-1" />*/}
+                                    <strong className="navLinkColor">Products</strong>
+                                </Nav.Link>
+                            )}
+                            { LoginState.isLoggedIn() && (
+                                <Nav.Link className="header-link">
+                                    {/*<FontAwesomeIcon icon={faAddressBook} className="icon mr-1" />*/}
+                                    <strong className="navLinkColor" onClick={this.logout}>Logout?</strong>
+                                </Nav.Link>
+                            )}
+                            {!LoginState.isLoggedIn() && (
                                 <Nav.Link href="/register" className="header-link">
                                     {/*<FontAwesomeIcon icon={faAddressBook} className="icon mr-1" />*/}
                                     <strong className="navLinkColor">Register</strong>
@@ -58,6 +79,7 @@ class App extends React.Component{
           {/*<Route path={'/product/:pid'} exact strict component={ProductDetailsView} />*/}
           <Route path={'/login'} exact strict component={Login} />
           <Route path={'/register'} exact strict component={Register} />
+            <Route path={'/accountant'} exact strict component={AccountantPage} />
           {/*<Route path={'/wishList'} exact strict component={WishList} />*/}
           {/*<Route path={'/cart'} exact strict component={Cart} />*/}
           {/*<Route path={'/categories'} exact strict component={AdminCategoryView} />*/}
@@ -70,7 +92,10 @@ class App extends React.Component{
         </Router>
     );
   }
-
+  logout = () => {
+      LoginState.Logout();
+      window.location.href = '/';
+  };
 
 }
 

@@ -163,7 +163,7 @@ class App extends React.Component{
 
         const ref = firebase.database().ref("Companies").child(key);
         let company = {
-            id : key,
+            companyId : key,
             companyName : this.state.companyName,
             companyEmail : this.state.companyEmail,
             companyAddress : this.state.companyAddress,

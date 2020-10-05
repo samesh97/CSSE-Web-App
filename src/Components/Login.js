@@ -5,6 +5,7 @@ import Navbar from "react-bootstrap";
 import '../Css/App.css';
 
 import register_image from '../Images/hello.png';
+import LoginState from '../Config/LoginState';
 
 class App extends React.Component{
 
@@ -92,14 +93,17 @@ class App extends React.Component{
             {
                 let email = companyObjectList[id].companyEmail;
                 let pw = companyObjectList[id].companyPassword;
+                let companyId = companyObjectList[id].companyId;
 
                 if(this.state.companyEmail === email && this.state.companyPassword === pw)
                 {
-                    console.log("Login success");
+                    LoginState.setUserLoggedIn(companyId,email);
+                    alert("Login success");
+                    window.location.href = '/accountant';
                 }
                 else
                 {
-                    console.log("Login failed");
+                    alert("Login failed");
                 }
             }
 
