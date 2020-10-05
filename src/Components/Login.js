@@ -88,6 +88,7 @@ class App extends React.Component{
         ref.once('value',(snapshot) => {
 
             const companyObjectList = snapshot.val();
+            var newList = [];
 
             for(let id in companyObjectList)
             {
@@ -95,17 +96,20 @@ class App extends React.Component{
                 let pw = companyObjectList[id].companyPassword;
                 let companyId = companyObjectList[id].companyId;
 
+                newList.push(email);
                 if(this.state.companyEmail === email && this.state.companyPassword === pw)
                 {
                     LoginState.setUserLoggedIn(companyId,email);
                     alert("Login success");
                     window.location.href = '/orders';
+                    break;
                 }
-                else
+                if(newList.length === snapshot.numChildren())
                 {
                     alert("Login failed");
                 }
             }
+
 
         });
     }
