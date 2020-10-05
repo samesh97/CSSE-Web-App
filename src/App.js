@@ -2,155 +2,74 @@ import React from 'react';
 import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import firebase from "../src/Database/FirebaseConfig";
-import Navbar from "react-bootstrap";
-import './Css/App.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Navbar, Nav} from 'react-bootstrap';
+
+//components
+import Register from './Components/Register';
+import icon from './Images/icon.png';
+import Home from  './Components/Home';
+
 
 class App extends React.Component{
 
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      companyName : '',
-      companyEmail : '',
-      companyPhone : '',
-      companyAddress : '',
-      companyPassword : '',
-      companyRetypedPassword : ''
-    };
-  }
 
   render()
   {
     return (
-        <div className="App">
-          <div  className="w-100">
-            <form className="w-25" id="container">
+        <Router>
+          <Route
+              path="/"
+              render={() => {
+                return (
+                    <Navbar expand="lg" sticky="top" className="navbar-color p-3 navbarcolor">
+                      <Navbar.Brand href="/">
+                        <img src={icon} className="logo" />
+                      </Navbar.Brand>
+                      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                      <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="mr-auto">
+                          <Nav.Link href="/" className="header-link">
+                            {/*<FontAwesomeIcon icon={faHome} className="mr-1" />*/}
+                            <strong className="navLinkColor">Home</strong>
+                          </Nav.Link>
+                          {(
+                              <Nav.Link href="/login" className="header-link">
+                                {/*<FontAwesomeIcon icon={faAddressBook} className="icon mr-1" />*/}
+                                <strong className="navLinkColor">login</strong>
+                              </Nav.Link>
+                          )}
+                            {(
+                                <Nav.Link href="/register" className="header-link">
+                                    {/*<FontAwesomeIcon icon={faAddressBook} className="icon mr-1" />*/}
+                                    <strong className="navLinkColor">Register</strong>
+                                </Nav.Link>
+                            )}
+                        </Nav>
+                      </Navbar.Collapse>
+                    </Navbar>
+                );
+              }}
+          />
 
-              <div className="form-group">
-                <input type="text"
-                       className="form-control"
-                       id="exampleInputEmail1"
-                       aria-describedby="emailHelp"
-                       placeholder="Company Name"
-                       onChange={ (e) => this.setState({companyName : e.target.value})}/>
-              </div>
-              <div className="form-group">
-                <input type="email"
-                       className="form-control"
-                       id="exampleInputEmail1"
-                       aria-describedby="emailHelp"
-                       placeholder="Company Email"
-                       onChange={ (e) => this.setState({companyEmail : e.target.value})}/>
-              </div>
-              <div className="form-group">
-                <input type="phone"
-                       className="form-control"
-                       id="exampleInputEmail1"
-                       aria-describedby="emailHelp"
-                       placeholder="Company Phone"
-                       onChange={ (e) => this.setState({companyPhone : e.target.value})}/>
-              </div>
-              <div className="form-group">
-                <input type="text"
-                       className="form-control"
-                       id="exampleInputEmail1"
-                       aria-describedby="emailHelp"
-                       placeholder="Company Address"
-                       onChange={ (e) => this.setState({companyAddress : e.target.value})}/>
-              </div>
-              <div className="form-group">
-                <input type="password"
-                       className="form-control"
-                       id="exampleInputEmail1"
-                       aria-describedby="emailHelp"
-                       placeholder="Password"
-                       onChange={ (e) => this.setState({companyPassword : e.target.value})}/>
-              </div>
-              <div className="form-group">
-                <input type="password"
-                       className="form-control"
-                       id="exampleInputEmail1"
-                       aria-describedby="emailHelp"
-                       placeholder="Re-type Password"
-                       onChange={ (e) => this.setState({companyRetypedPassword : e.target.value})}/>
-              </div>
-
-              <button type="submit" className="btn btn-primary w-100" onClick={this.register}>Register</button>
-
-            </form>
-          </div>
-        </div>
+          <Route path={'/'} exact strict component={Home} />
+          {/*<Route path={'/product/:pid'} exact strict component={ProductDetailsView} />*/}
+          {/*<Route path={'/login'} exact strict component={Register} />*/}
+          <Route path={'/register'} exact strict component={Register} />
+          {/*<Route path={'/wishList'} exact strict component={WishList} />*/}
+          {/*<Route path={'/cart'} exact strict component={Cart} />*/}
+          {/*<Route path={'/categories'} exact strict component={AdminCategoryView} />*/}
+          {/*<Route path={'/products'} exact strict component={ManagerView} />*/}
+          {/*<Route path={'/products/create'} exact strict component={ProductCreateAndUpdate} />*/}
+          {/*<Route path={'/products/update/:pid'} exact strict component={ProductCreateAndUpdate} />*/}
+          {/*<Route path={'/error'} exact strict component={Error} />*/}
+          {/*<Route path={'/productByCategory/:cid'} exact strict component={Category} />*/}
+          {/*<Route path={'/register/manager'} exact strict component={RegisterManager} />*/}
+        </Router>
     );
   }
-  callMe = () =>{
-    const ref = firebase.database().ref("Hello");
-    ref.set()
 
-  }
-  clearInputFields = () => {
-    this.setState({
-      companyName : '',
-      companyEmail : '',
-      companyPhone : '',
-      companyAddress : '',
-      companyPassword : '',
-      companyRetypedPassword : ''
-    });
-  }
-  register = (e) => {
-
-    e.preventDefault();
-    if(this.state.companyName === "")
-    {
-      alert("Please enter company name");
-      return;
-    }
-    if(this.state.companyEmail === "")
-    {
-      alert("Please enter company email");
-      return;
-    }
-    if(this.state.companyPhone === "")
-    {
-      alert("Please enter company phone");
-      return;
-    }
-    if(this.state.companyAddress === "")
-    {
-      alert("Please enter company address");
-      return;
-    }
-    if(this.state.companyPassword === "")
-    {
-      alert("Please enter company password");
-      return;
-    }
-    if(this.state.companyRetypedPassword === "")
-    {
-      alert("Please enter company password again");
-      return;
-    }
-    if(this.state.companyPassword !== this.state.companyRetypedPassword)
-    {
-      alert("Password mismatched");
-      return;
-    }
-
-    const ref = firebase.database().ref("Companies");
-    let company = {
-      companyName : this.state.companyName,
-      companyEmail : this.state.companyEmail,
-      companyAddress : this.state.companyAddress,
-      companyPassword: this.state.companyPassword,
-      companyPhone: this.state.companyPhone
-    };
-
-    ref.push(company);
-    alert("Success");
-
-    this.clearInputFields();
-  }
 
 }
 
