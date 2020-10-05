@@ -4,6 +4,7 @@ import css from '../Css/App.css';
 import register_image from "../Images/hello.png";
 
 import firebase from "../Database/FirebaseConfig";
+import LoginState from '../Config/LoginState';
 
 class App extends React.Component
 {
@@ -148,10 +149,11 @@ class App extends React.Component
         let random = Math.floor(Math.random() * 10000000);
         let key = time * random;
 
-        const ref = firebase.database().ref("Suppliers").child(key);
+        const ref = firebase.database().ref("Companies").child(LoginState.getCompanyId()).child("Suppliers").child(key);
 
         let supplier = {
             supplierId : key,
+            companyId : LoginState.getCompanyId(),
             supplierName : this.state.companyName,
             supplierEmail : this.state.companyEmail,
             supplierAddress : this.state.companyAddress,
@@ -169,7 +171,7 @@ class App extends React.Component
             else
             {
                 alert("Supplier was successfully Added!");
-                window.location.href = '/supplier';
+                window.location.href = '/suppliers';
             }
         })
 

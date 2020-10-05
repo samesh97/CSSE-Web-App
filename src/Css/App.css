@@ -127,3 +127,22 @@ body {
     background-color: #e25c2d;
     border: none;
 }
+.orders_container
+{
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+.order_edit_update_btn
+{
+    width: 100px;
+}
+.card_body
+{
+    background: rgba(255,255,255,0.5);
+    margin-bottom: 5px;
+}
+.order_p_below
+{
+    margin-top: -10px;
+}

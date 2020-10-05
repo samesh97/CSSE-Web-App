@@ -36,10 +36,18 @@ class App extends React.Component{
                       <Navbar.Toggle aria-controls="basic-navbar-nav" />
                       <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                          <Nav.Link href="/" className="header-link">
-                            {/*<FontAwesomeIcon icon={faHome} className="mr-1" />*/}
-                            <strong className="navLinkColor">Home</strong>
-                          </Nav.Link>
+                            {!LoginState.isLoggedIn() && (
+                                <Nav.Link href="/" className="header-link">
+                                    {/*<FontAwesomeIcon icon={faHome} className="mr-1" />*/}
+                                    <strong className="navLinkColor">Home</strong>
+                                </Nav.Link>
+                            )}
+                            {LoginState.isLoggedIn() && (
+                                <Nav.Link href="/orders" className="header-link">
+                                    {/*<FontAwesomeIcon icon={faHome} className="mr-1" />*/}
+                                    <strong className="navLinkColor">Home</strong>
+                                </Nav.Link>
+                            )}
                           { !LoginState.isLoggedIn() && (
                               <Nav.Link href="/login" className="header-link">
                                 {/*<FontAwesomeIcon icon={faAddressBook} className="icon mr-1" />*/}
