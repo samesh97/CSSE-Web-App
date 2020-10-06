@@ -182,7 +182,7 @@ class App extends React.Component
             else
             {
                 alert("Supplier was successfully Updated!");
-                window.location.href = '/orders';
+                window.location.href = '/suppliers';
             }
         })
 

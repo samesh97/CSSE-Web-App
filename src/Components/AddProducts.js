@@ -139,9 +139,6 @@ class App extends React.Component
 
     }
 
-    OnSupplierSelected = (value) => {
-
-    }
     getSupplierList = () =>{
 
         const ref = firebase.database().ref("Companies").child(LoginState.getCompanyId()).child("Suppliers");
@@ -235,9 +232,41 @@ class App extends React.Component
             }, () => {
                 storage.ref('images').child(imageAsFile.name).getDownloadURL()
                     .then(fireBaseUrl => {
-                       console.log(fireBaseUrl)
+                        this.PutProductInTheDatabase(fireBaseUrl,key);
                     })
             })
+
+    }
+
+    PutProductInTheDatabase = (imageLink,key) =>
+    {
+
+        const ref = firebase.database().ref("Companies").child(LoginState.getCompanyId()).child("Products").child(key);
+        const product = {
+            productId : key,
+            product : this.state.product,
+            supplier : this.state.supplier,
+            unit : this.state.unit,
+            type : this.state.type,
+            currentPrice: this.state.currentPrice,
+            expensiveness : this.state.expensiveness,
+            status : this.state.status,
+            imageLink : imageLink
+
+
+        }
+
+        ref.set(product, function(error) {
+            if (error)
+            {
+                alert("An error occurred!" + error.message);
+            }
+            else
+            {
+                alert("Product was added successfully!");
+                window.location.href = '/products/add';
+            }
+        })
 
     }
 }
