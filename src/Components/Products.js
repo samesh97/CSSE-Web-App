@@ -48,7 +48,7 @@ class App extends React.Component
                                 <p className="card-text">{"Status - " + item.status}</p>
                                 {
                                     item.status === "Restricted" && (
-                                        <a className="btn btn-primary w-100" onClick={() => this.updateproductItem(item.productId,"Not Restricted")}>Un Restrict</a>
+                                        <a className="btn btn-primary w-100" onClick={() => this.updateproductItem(item.productId,"Not Restricted")}>UnRestrict</a>
                                     )
                                 }
                                 {
