@@ -5,7 +5,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import firebase from "../Database/FirebaseConfig";
 import LoginState from "../Config/LoginState";
 
+
+
 import LoadingOverlay from 'react-loading-overlay';
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 class App extends React.Component
 {
@@ -62,7 +66,7 @@ class App extends React.Component
                 {!this.state.isLoading &&   <a className="btn btn-primary add_suppliers_btn" onClick={() => this.GoToAddSupplier()}>Add Suppliers</a>
                 }
 
-                {!this.state.isLoading &&  <div className="orders_container">{listItems}</div>
+                {!this.state.isLoading &&  <div className="orders_container" id="capture">{listItems}</div>
                 }
 
 
@@ -112,7 +116,7 @@ class App extends React.Component
             .then(function()
             {
                 alert("Deleted successfully!");
-                window.location.href = "/orders";
+                window.location.href = "/suppliers";
             })
             .catch(function(error)
             {
@@ -130,5 +134,7 @@ class App extends React.Component
         window.location.href = " /suppliers/add";
 
     }
+
+
 }
 export default App;

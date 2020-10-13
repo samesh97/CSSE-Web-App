@@ -264,7 +264,7 @@ class App extends React.Component
             else
             {
                 alert("Product was added successfully!");
-                window.location.href = '/products/add';
+                window.location.href = '/products';
             }
         })
 

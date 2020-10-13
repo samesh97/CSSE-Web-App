@@ -34,7 +34,7 @@ class App extends React.Component
                         <div  id="container">
                             <div className="form-group">
                                 <input type="text"
-                                       className="form-control"
+                                       className="form-control inputfirst"
                                        id="exampleInputEmail1"
                                        aria-describedby="emailHelp"
                                        value={this.state.companyName}
@@ -171,7 +171,7 @@ class App extends React.Component
             else
             {
                 alert("Supplier was successfully Added!");
-                window.location.href = '/orders';
+                window.location.href = '/suppliers';
             }
         })
 
