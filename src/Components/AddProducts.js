@@ -20,7 +20,8 @@ class App extends React.Component
             currentPrice : '',
             expensiveness : '',
             status : '',
-            image : ''
+            image : '',
+            isLoading : true
         };
     }
 
@@ -38,113 +39,114 @@ class App extends React.Component
 
         return(
             <div className="App">
-                <div  className="w-100">
-                    <form className="w-50" id="register_root">
+                {
+                    !this.state.isLoading &&
+                    <div  className="w-100">
+                        <form className="w-50" id="register_root">
 
-                        <img src={register_image} className="register_image"/>
+                            <img src={register_image} className="register_image"/>
 
 
-                        <div  id="container">
+                            <div  id="container">
 
-                            <div className="form-group add_product_first_input">
-                                <select name="product" id="product" className="form-control input" onChange={(e) => this.setState({product : e.target.value})}>
-                                    <option value="">Product</option>
-                                    <option value="Cement">Cement</option>
-                                    <option value="Stone">Stone</option>
-                                    <option value="Brick">Brick</option>
-                                    <option value="Sand">Sand</option>
-                                </select>
+                                <div className="form-group add_product_first_input">
+                                    <select name="product" id="product" className="form-control input" onChange={(e) => this.setState({product : e.target.value})}>
+                                        <option value="">Product</option>
+                                        <option value="Cement">Cement</option>
+                                        <option value="Stone">Stone</option>
+                                        <option value="Brick">Brick</option>
+                                        <option value="Sand">Sand</option>
+                                    </select>
+                                </div>
+
+                                <div className="form-group">
+                                    <select name="supplier" id="supplier" className="form-control input" onChange={(e) => this.setState({supplier : e.target.value})}>
+                                        <option value="">Supplier</option>
+                                        {options}
+                                    </select>
+                                </div>
+
+                                <div className="form-group">
+                                    <select name="unit" id="unit" className="form-control input" onChange={(e) => this.setState({unit : e.target.value})}>
+                                        <option value="">Unit</option>
+                                        <option value="Bag">Bag</option>
+                                        <option value="Kilo">Kilo</option>
+                                        <option value="Cubes">Cubes</option>
+                                        <option value="Liters">Liters</option>
+                                    </select>
+                                </div>
+
+                                <div className="form-group">
+                                    <select name="type" id="type" className="form-control input" onChange={(e) => this.setState({type : e.target.value})}>
+                                        <option value="">Type</option>
+                                        <option value="Construction">Construction</option>
+                                        <option value="Hardware Materials">Hardware Materials</option>
+                                        <option value="Electrical">Electrical</option>
+                                        <option value="Paint">Paint</option>
+                                    </select>
+                                </div>
+
+                                <div className="form-group">
+                                    <input type="text"
+                                           className="form-control input"
+                                           id="exampleInputEmail1"
+                                           aria-describedby="emailHelp"
+                                           onChange={(e) => this.setState({currentPrice : e.target.value})}
+                                           placeholder="Current Price Per Unit"/>
+                                </div>
+
+                                <div className="form-group">
+                                    <select name="expensiveness" id="expensiveness" className="form-control input" onChange={(e) => this.setState({expensiveness : e.target.value})}>
+                                        <option value="">Expensiveness</option>
+                                        <option value="Low">Low</option>
+                                        <option value="Normal">Normal</option>
+                                        <option value="High">High</option>
+                                        <option value="Extremely">Extremely</option>
+                                    </select>
+                                </div>
+
+                                <div className="form-group">
+                                    <select name="status" id="status" className="form-control input" onChange={(e) => this.setState({status : e.target.value})}>
+                                        <option value="">Status</option>
+                                        <option value="Not Restricted" >Not Restricted</option>
+                                        <option value="Restricted" disabled>Restricted</option>
+                                    </select>
+                                </div>
+
+                                <div className="form-group">
+                                    <input type="file"
+                                           className="form-control input"
+                                           id="exampleInputEmail1"
+                                           aria-describedby="emailHelp"
+                                           onChange={(e) => this.setState({image : e.target.files[0]})}
+                                           placeholder="Pick Image"/>
+                                </div>
+
+                                <div className="register_btn_container">
+                                    <button type="submit" className="btn btn-primary registerbtn" onClick={(e) => this.addProduct(e)}>Add Product</button>
+                                </div>
+
+
                             </div>
 
-                            <div className="form-group">
-                                <select name="supplier" id="supplier" className="form-control input" onChange={(e) => this.setState({supplier : e.target.value})}>
-                                    <option value="">Supplier</option>
-                                    {options}
-                                </select>
-                            </div>
-
-                            <div className="form-group">
-                                <select name="unit" id="unit" className="form-control input" onChange={(e) => this.setState({unit : e.target.value})}>
-                                    <option value="">Unit</option>
-                                    <option value="Bag">Bag</option>
-                                    <option value="Kilo">Kilo</option>
-                                    <option value="Cubes">Cubes</option>
-                                    <option value="Liters">Liters</option>
-                                </select>
-                            </div>
-
-                            <div className="form-group">
-                                <select name="type" id="type" className="form-control input" onChange={(e) => this.setState({type : e.target.value})}>
-                                    <option value="">Type</option>
-                                    <option value="Construction">Construction</option>
-                                    <option value="Hardware Materials">Hardware Materials</option>
-                                    <option value="Electrical">Electrical</option>
-                                    <option value="Paint">Paint</option>
-                                </select>
-                            </div>
-
-                            <div className="form-group">
-                                <input type="text"
-                                       className="form-control input"
-                                       id="exampleInputEmail1"
-                                       aria-describedby="emailHelp"
-                                       onChange={(e) => this.setState({currentPrice : e.target.value})}
-                                       placeholder="Current Price Per Unit"/>
-                            </div>
-
-                            <div className="form-group">
-                                <select name="expensiveness" id="expensiveness" className="form-control input" onChange={(e) => this.setState({expensiveness : e.target.value})}>
-                                    <option value="">Expensiveness</option>
-                                    <option value="Low">Low</option>
-                                    <option value="Normal">Normal</option>
-                                    <option value="High">High</option>
-                                    <option value="Extremely">Extremely</option>
-                                </select>
-                            </div>
-
-                            <div className="form-group">
-                                <select name="status" id="status" className="form-control input" onChange={(e) => this.setState({status : e.target.value})}>
-                                    <option value="">Status</option>
-                                    <option value="Not Restricted" >Not Restricted</option>
-                                    <option value="Restricted" disabled>Restricted</option>
-                                </select>
-                            </div>
-
-                            <div className="form-group">
-                                <input type="file"
-                                       className="form-control input"
-                                       id="exampleInputEmail1"
-                                       aria-describedby="emailHelp"
-                                       onChange={(e) => this.setState({image : e.target.files[0]})}
-                                       placeholder="Pick Image"/>
-                            </div>
-
-                            <div className="register_btn_container">
-                                <button type="submit" className="btn btn-primary registerbtn" onClick={(e) => this.addProduct(e)}>Add Product</button>
-                            </div>
 
 
-                        </div>
+                        </form>
+                    </div>
+                }
+                {this.state.isLoading && (
+                    <div className="loading_screen">
+                        <div className="loader"/>
+                    </div>
+                )}
 
-
-
-                    </form>
-                </div>
             </div>
         )
-    }
-
-    OnProductSelected = (value) =>
-    {
-
     }
 
     getSupplierList = () =>{
 
         const ref = firebase.database().ref("Companies").child(LoginState.getCompanyId()).child("Suppliers");
-
-        let list = [];
-        list.push("hello");
 
         ref.once('value',(snapshot) => {
 
@@ -153,18 +155,11 @@ class App extends React.Component
             for(let i in list)
             {
                 newList.push(list[i]);
-                this.setState({
-                    supplierList : newList,
-                    isLoading : false
-                });
-
             }
-            if(snapshot.numChildren() === 0)
-            {
-                this.setState({
-                    isLoading : false
-                })
-            }
+            this.setState({
+                supplierList : newList,
+                isLoading : false
+            });
 
         })
     }
@@ -220,6 +215,12 @@ class App extends React.Component
 
         let key = time * random;
 
+        this.setState({
+            isLoading : true
+        })
+
+
+
         //upload image
         const imageAsFile = this.state.image;
         const uploadTask = storage.ref(`/images/${imageAsFile.name}`).put(imageAsFile)
@@ -267,6 +268,11 @@ class App extends React.Component
                 window.location.href = '/products';
             }
         })
+
+        this.setState({
+            isLoading : false
+        })
+
 
     }
 }

@@ -15,6 +15,7 @@ import UpdateSuppliers from './Components/UpdateSuppliers';
 import AddSuppliers from './Components/AddSuppliers';
 import AddProducts from './Components/AddProducts';
 import ProductsPage from './Components/Products';
+import AddManager from './Components/Manager';
 
 
 
@@ -73,6 +74,12 @@ class App extends React.Component{
                                 </Nav.Link>
                             )}
                             { LoginState.isLoggedIn() && (
+                                <Nav.Link className="header-link" href="/manager/add">
+                                    {/*<FontAwesomeIcon icon={faAddressBook} className="icon mr-1" />*/}
+                                    <strong className="navLinkColor">Manager</strong>
+                                </Nav.Link>
+                            )}
+                            { LoginState.isLoggedIn() && (
                                 <Nav.Link className="header-link">
                                     {/*<FontAwesomeIcon icon={faAddressBook} className="icon mr-1" />*/}
                                     <strong className="navLinkColor" onClick={this.logout}>Logout?</strong>
@@ -100,6 +107,7 @@ class App extends React.Component{
           <Route path={'/register'} exact strict component={Register} />
           {/*<Route path={'/orders'} exact strict component={OrdersPage} />*/}
           <Route path={'/suppliers'} exact strict component={SuppliersPage} />
+            <Route path={'/manager/add'} exact strict component={AddManager} />
         </Router>
     );
   }

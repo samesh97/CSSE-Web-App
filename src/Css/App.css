@@ -32,15 +32,19 @@ body {
 .navLinkColor
 {
 
-    font-size: 17px;
+    font-size: 14px;
     font-family: Arial;
     background: rgba(255,255,255,0.7);
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
     border-radius: 5px;
 }
 .navLinkColor:hover
 {
     color: white;
+    background: rgba(0,0,0,0.7);
 
 }
 .navbarcolor
