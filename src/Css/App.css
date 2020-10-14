@@ -139,6 +139,12 @@ body {
     margin-top: 50px;
     width: 60%;
 }
+.orders_contai
+{
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
 .order_edit_update_btn
 {
     width: 100px;

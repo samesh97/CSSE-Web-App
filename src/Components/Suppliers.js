@@ -26,27 +26,6 @@ class App extends React.Component
     }
     render() {
 
-        // const listItems = this.state.mySupplierList.map(item => {
-        //
-        //     return (
-        //         <div className="w-100">
-        //
-        //
-        //             <div className="card card_body">
-        //                 <div className="card-body">
-        //                     <h5 className="card-title">{item.supplierName}</h5>
-        //                     <p className="card-text">{"Email -" + item.supplierEmail}</p>
-        //                     <p className="card-text order_p_below">{"Contact No - " + item.supplierPhone}</p>
-        //                     <p className="card-text order_p_below">{"Manager Name - " + item.supplierManagerName}</p>
-        //                     <p className="card-text order_p_below">{"Type - " + item.supplierType}</p>
-        //                     <a className="btn btn-danger order_edit_update_btn">Remove</a>
-        //                 </div>
-        //             </div>
-        //         </div>
-        //     )
-        // })
-
-
 
         const listItems = this.state.mySupplierList.map(item => {
 
@@ -79,8 +58,6 @@ class App extends React.Component
 
             )
         })
-
-
 
 
         const allSuppliers = this.state.allSuppliers.map(item => {
@@ -125,9 +102,14 @@ class App extends React.Component
                         </div>
                     )}
 
-                {!this.state.isLoading &&  <div className="orders_container">{listItems}</div>
+                {
+                    !this.state.isLoading &&  <div className="orders_container">{listItems}</div>
                 }
-                {!this.state.isLoading &&  <div className="orders_container">{allSuppliers}</div>
+                {
+                    !this.state.isLoading && this.state.mySupplierList.length > 0 && <div className="orders_contai">{allSuppliers}</div>
+                }
+                {
+                    !this.state.isLoading && this.state.mySupplierList.length === 0 && <div className="orders_container">{allSuppliers}</div>
                 }
 
 
@@ -189,11 +171,6 @@ class App extends React.Component
                 alert("An error occurred!");
             });
     }
-
-    updateItem = (supplierId) =>
-    {
-       window.location.href = "/supplier/" + supplierId;
-    }
     getAllSuppliers = (filterList) => {
 
         const ref = firebase.database().ref("Suppliers");
@@ -230,13 +207,6 @@ class App extends React.Component
 
     };
 
-
-
-    GoToAddSupplier() {
-
-        window.location.href = " /suppliers/add";
-
-    }
 
 
 }
