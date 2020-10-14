@@ -143,9 +143,21 @@ class App extends React.Component
     }
     Add = (supplier) => {
 
-        const ref = firebase.database().ref("Companies").child(LoginState.getCompanyId()).child("Suppliers").child(supplier.supplierId);
 
-        ref.set(supplier, function(error) {
+
+        const newSupplier = {
+            supplierId : supplier.supplierId,
+            supplierName : supplier.supplierName,
+            supplierEmail : supplier.supplierEmail,
+            supplierAddress : supplier.supplierAddress,
+            supplierPhone : supplier.supplierPhone,
+            supplierType : supplier.supplierType,
+            supplierImage : supplier.supplierImage
+        }
+
+        const ref = firebase.database().ref("Companies").child(LoginState.getCompanyId()).child("Suppliers").child(newSupplier.supplierId);
+
+        ref.set(newSupplier, function(error) {
             if (error)
             {
                 alert("An error occurred!" + error.message);
