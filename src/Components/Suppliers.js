@@ -45,7 +45,7 @@ class App extends React.Component
                                 <p className="card-text order_p_below">{"Contact No - " + item.supplierPhone}</p>
                                 <p className="card-text order_p_below">{"Address - " + item.supplierAddress}</p>
                                 <p className="card-text order_p_below">{"Type - " + item.supplierType}</p>
-                                <a className="btn btn-danger order_edit_update_btn" onClick={() => this.deleteItem(item.supplierId)}>Remove</a>
+                                <a className="btn btn-danger order_edit_update_btn" onClick={() => this.removeItem(item.supplierId)}>Remove</a>
 
                             </div>
                         </div>
@@ -170,12 +170,12 @@ class App extends React.Component
         })
     }
 
-    deleteItem = (supplierId) => {
+    removeItem = (supplierId) => {
         const ref = firebase.database().ref("Companies").child(LoginState.getCompanyId()).child("Suppliers").child(supplierId);
         ref.remove()
             .then(function()
             {
-                alert("Deleted successfully!");
+                alert("Removed Successfully!");
                 window.location.href = "/suppliers";
             })
             .catch(function(error)
