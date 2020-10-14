@@ -56,6 +56,9 @@ class App extends React.Component
                                         <a className="btn btn-danger w-25" onClick={() => this.updateproductItem(item.productId,"Restricted")}>Restrict</a>
                                     )
                                 }
+                                {
+                                    <a className="btn btn-primary w-25 ml-2" onClick={() => this.edit(item.productId)}>Edit</a>
+                                }
 
                             </div>
                         </div>
@@ -126,6 +129,11 @@ class App extends React.Component
 
     GoToAddProducts = () =>{
        window.location.href = "/products/add";
+    }
+
+    edit = (productId) =>
+    {
+        window.location.href = "/product/" + productId;
     }
 
     updateproductItem = (productId,status) =>{

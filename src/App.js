@@ -16,6 +16,7 @@ import AddSuppliers from './Components/AddSuppliers';
 import AddProducts from './Components/AddProducts';
 import ProductsPage from './Components/Products';
 import AddManager from './Components/Manager';
+import UpdateProduct from './Components/UpdateProduct';
 
 
 
@@ -100,6 +101,7 @@ class App extends React.Component{
 
           <Route path={'/'} exact strict component={Home} />
           <Route path={'/supplier/:id'} exact strict component={UpdateSuppliers} />
+            <Route path={'/product/:id'} exact strict component={UpdateProduct} />
             <Route path={'/suppliers/add'} exact strict component={AddSuppliers} />
             <Route path={'/products/add'} exact strict component={AddProducts} />
             <Route path={'/products'} exact strict component={ProductsPage} />
