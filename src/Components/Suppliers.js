@@ -35,7 +35,7 @@ class App extends React.Component
                 <div className="container card_container">
                     <div className="row">
                         <div className="col">
-                            <img className="productImage" src={item.supplierImage}/>
+                            <img className="supplierImage" src={item.supplierImage}/>
                         </div>
                         <div className="col card_body">
                             <div className="card-body">
@@ -68,7 +68,7 @@ class App extends React.Component
                 <div className="container card_container">
                     <div className="row">
                         <div className="col">
-                            <img className="productImage" src={item.supplierImage}/>
+                            <img className="supplierImage" src={item.supplierImage}/>
                         </div>
                         <div className="col card_body">
                             <div className="card-body">
