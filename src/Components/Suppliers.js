@@ -7,17 +7,14 @@ import LoginState from "../Config/LoginState";
 
 
 
-import LoadingOverlay from 'react-loading-overlay';
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
-
 class App extends React.Component
 {
     constructor(props) {
         super(props);
 
         this.state = {
-          ordersList : [],
+            mySupplierList : [],
+            allSuppliers : [],
             isLoading : true
         };
 
@@ -25,33 +22,98 @@ class App extends React.Component
     }
 
     componentDidMount() {
-        this.getSupplierList();
+        this.getMySupplierList();
     }
     render() {
 
-        const listItems = this.state.ordersList.map(item => {
+        // const listItems = this.state.mySupplierList.map(item => {
+        //
+        //     return (
+        //         <div className="w-100">
+        //
+        //
+        //             <div className="card card_body">
+        //                 <div className="card-body">
+        //                     <h5 className="card-title">{item.supplierName}</h5>
+        //                     <p className="card-text">{"Email -" + item.supplierEmail}</p>
+        //                     <p className="card-text order_p_below">{"Contact No - " + item.supplierPhone}</p>
+        //                     <p className="card-text order_p_below">{"Manager Name - " + item.supplierManagerName}</p>
+        //                     <p className="card-text order_p_below">{"Type - " + item.supplierType}</p>
+        //                     <a className="btn btn-danger order_edit_update_btn">Remove</a>
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     )
+        // })
 
 
+
+        const listItems = this.state.mySupplierList.map(item => {
 
             return (
-                <div className="w-100">
 
 
-                    <div className="card card_body">
-                        <div className="card-body">
-                            <h5 className="card-title">{item.supplierName}</h5>
-                            <p className="card-text">{"Email -" + item.supplierEmail}</p>
-                            <p className="card-text order_p_below">{"Contact No - " + item.supplierPhone}</p>
-                            <p className="card-text order_p_below">{"Manager Name - " + item.supplierManagerName}</p>
-                            <p className="card-text order_p_below">{"Type - " + item.supplierType}</p>
-                            <a className="btn btn-primary order_edit_update_btn" onClick={() => this.updateItem(item.supplierId)}>Edit</a>
-                            <a className="btn btn-danger ml-2 order_edit_update_btn" onClick={() => this.deleteItem(item.supplierId)}>Delete</a>
+                <div className="container card_container">
+                    <div className="row">
+                        <div className="col">
+                            <img className="productImage" src={item.supplierImage}/>
+                        </div>
+                        <div className="col card_body">
+                            <div className="card-body">
+
+                                <h5 className="card-title">{item.supplierName}</h5>
+                                <p className="card-text">{"Email -" + item.supplierEmail}</p>
+                                <p className="card-text order_p_below">{"Contact No - " + item.supplierPhone}</p>
+                                <p className="card-text order_p_below">{"Address - " + item.supplierAddress}</p>
+                                <p className="card-text order_p_below">{"Type - " + item.supplierType}</p>
+                                <a className="btn btn-danger order_edit_update_btn" onClick={() => this.deleteItem(item.supplierId)}>Remove</a>
+
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
+
+
+
             )
         })
 
+
+
+
+        const allSuppliers = this.state.allSuppliers.map(item => {
+
+            return (
+
+
+                <div className="container card_container">
+                    <div className="row">
+                        <div className="col">
+                            <img className="productImage" src={item.supplierImage}/>
+                        </div>
+                        <div className="col card_body">
+                            <div className="card-body">
+
+                                <h5 className="card-title">{item.supplierName}</h5>
+                                <p className="card-text">{"Email -" + item.supplierEmail}</p>
+                                <p className="card-text order_p_below">{"Contact No - " + item.supplierPhone}</p>
+                                <p className="card-text order_p_below">{"Address - " + item.supplierAddress}</p>
+                                <p className="card-text order_p_below">{"Type - " + item.supplierType}</p>
+                                <a className="btn btn-primary order_edit_update_btn" onClick={() => this.Add(item)}>Add</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+            )
+        })
 
 
         return(
@@ -63,10 +125,9 @@ class App extends React.Component
                         </div>
                     )}
 
-                {!this.state.isLoading &&   <a className="btn btn-primary add_suppliers_btn" onClick={() => this.GoToAddSupplier()}>Add Suppliers</a>
+                {!this.state.isLoading &&  <div className="orders_container">{listItems}</div>
                 }
-
-                {!this.state.isLoading &&  <div className="orders_container" id="capture">{listItems}</div>
+                {!this.state.isLoading &&  <div className="orders_container">{allSuppliers}</div>
                 }
 
 
@@ -77,36 +138,41 @@ class App extends React.Component
         );
     }
 
-    getSupplierList = () =>{
+    getMySupplierList = () =>{
 
         const ref = firebase.database().ref("Companies").child(LoginState.getCompanyId()).child("Suppliers");
-
-        let list = [];
-        list.push("hello");
-        // this.setState({
-        //             ordersList : list
-        //         });
+        let newList = [];
 
         ref.once('value',(snapshot) => {
 
             const list = snapshot.val();
-            let newList = [];
+
             for(let i in list)
             {
                 newList.push(list[i]);
-                this.setState({
-                    ordersList : newList,
-                    isLoading : false
-                });
 
             }
-            if(snapshot.numChildren() === 0)
+            this.setState({
+                mySupplierList : newList,
+            });
+            this.getAllSuppliers(this.state.mySupplierList);
+
+        })
+    }
+    Add = (supplier) => {
+
+        const ref = firebase.database().ref("Companies").child(LoginState.getCompanyId()).child("Suppliers").child(supplier.supplierId);
+
+        ref.set(supplier, function(error) {
+            if (error)
             {
-                this.setState({
-                    isLoading : false
-                })
+                alert("An error occurred!" + error.message);
             }
-
+            else
+            {
+                alert("Supplier was successfully Added!");
+                window.location.href = '/suppliers';
+            }
         })
     }
 
@@ -128,6 +194,43 @@ class App extends React.Component
     {
        window.location.href = "/supplier/" + supplierId;
     }
+    getAllSuppliers = (filterList) => {
+
+        const ref = firebase.database().ref("Suppliers");
+        let newList = [];
+        ref.once('value',(snapshot) => {
+
+            const list = snapshot.val();
+            for(let i in list)
+            {
+                let bool = false;
+                for(let x in filterList)
+                {
+                    const item = list[i];
+                    const filterItem = filterList[x];
+
+                    if(item.supplierId === filterItem.supplierId)
+                    {
+                        bool = true;
+                    }
+
+                }
+                if(!bool)
+                {
+                    newList.push(list[i]);
+                }
+
+            }
+            this.setState({
+                allSuppliers : newList,
+                isLoading : false
+            });
+
+        })
+
+    };
+
+
 
     GoToAddSupplier() {
 

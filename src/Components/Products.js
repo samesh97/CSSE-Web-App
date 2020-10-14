@@ -65,48 +65,6 @@ class App extends React.Component
 
 
 
-                // <div className="card_bodyy">
-                //     <div className="card card_body">
-                //
-                //
-                //         <div className="container">
-                //             <div className="row">
-                //                 <div className="col-sm">
-                //                     <img className="productImage" src={item.imageLink}/>
-                //                 </div>
-                //
-                //                 <div className="col-sm">
-                //
-                //                     <div className="card-body card_body">
-                //                         <h5 className="card-title">{item.product}</h5>
-                //                         <p className="card-text">{"Measuring Unit - " + item.unit}</p>
-                //                         <p className="card-text">{"Type - " + item.type}</p>
-                //                         <p className="card-text">{"Current Price - " + item.currentPrice + " LKR"}</p>
-                //                         <p className="card-text">{"Expensiveness - " + item.expensiveness}</p>
-                //                         <p className="card-text">{"Status - " + item.status}</p>
-                //                         {
-                //                             item.status === "Restricted" && (
-                //                                 <a className="btn btn-primary" onClick={() => this.updateproductItem(item.productId,"Not Restricted")}>Un Restrict</a>
-                //                             )
-                //                         }
-                //                         {
-                //                             item.status === "Not Restricted" && (
-                //                                 <a className="btn btn-danger" onClick={() => this.updateproductItem(item.productId,"Restricted")}>Restrict</a>
-                //                             )
-                //                         }
-                //
-                //
-                //                     </div>
-                //                 </div>
-                //             </div>
-                //         </div>
-                //
-                //
-                //
-                //
-                //
-                //     </div>
-                // </div>
 
             )
         })
