@@ -5,6 +5,8 @@ import firebase, {storage} from '../Database/FirebaseConfig';
 import register_image from "../Images/hello.png";
 import LoginState from "../Config/LoginState";
 
+import { Multiselect } from 'multiselect-react-dropdown';
+
 class App extends React.Component
 {
 
@@ -14,13 +16,13 @@ class App extends React.Component
         this.state = {
           supplierList : [],
             product : '',
-            supplier : '',
             unit : '',
             type : '',
             currentPrice : '',
             expensiveness : '',
             status : '',
             image : '',
+            selectedSuppliers : [],
             isLoading : true
         };
     }
@@ -32,9 +34,16 @@ class App extends React.Component
     render() {
 
 
-           const options =  this.state.supplierList.map(item => {
-                return  <option value={item.supplierName}>{item.supplierName}</option>
-            })
+           // const options =  this.state.supplierList.map(item => {
+           //      return  <option value={item.supplierName}>{item.supplierName}</option>
+           //  })
+
+
+        const optionList = [];
+        const options =  this.state.supplierList.map(item => {
+            optionList.push({name : item.supplierName, id : item.supplierId});
+        })
+
 
 
         return(
@@ -60,10 +69,17 @@ class App extends React.Component
                                 </div>
 
                                 <div className="form-group">
-                                    <select name="supplier" id="supplier" className="form-control input" onChange={(e) => this.setState({supplier : e.target.value})}>
-                                        <option value="">Supplier</option>
-                                        {options}
-                                    </select>
+                                    <Multiselect
+                                        options={optionList} // Options to display in the dropdown
+                                        selectedValues={this.state.selectedSuppliers} // Preselected value to persist in dropdown
+                                        onSelect={this.onSelect} // Function will trigger on select event
+                                        onRemove={this.onRemove} // Function will trigger on remove event
+                                        displayValue="name" // Property name to display in the dropdown options
+                                    />
+                                    {/*<select name="supplier" id="supplier" className="form-control input" onChange={(e) => this.setState({supplier : e.target.value})}>*/}
+                                    {/*    /!*<option value="">Supplier</option>*!/*/}
+                                    {/*    {options}*/}
+                                    {/*</select>*/}
                                 </div>
 
                                 <div className="form-group">
@@ -173,7 +189,7 @@ class App extends React.Component
             alert("Please select product");
             return;
         }
-        if(this.state.supplier === "")
+        if(this.state.selectedSuppliers.length === 0)
         {
             alert("Please select supplier");
             return;
@@ -246,7 +262,7 @@ class App extends React.Component
         const product = {
             productId : key,
             product : this.state.product,
-            supplier : this.state.supplier,
+            suppliers : this.state.selectedSuppliers,
             unit : this.state.unit,
             type : this.state.type,
             currentPrice: this.state.currentPrice,
@@ -273,6 +289,41 @@ class App extends React.Component
             isLoading : false
         })
 
+
+    }
+    onSelect = (selectedList, selectedItem) =>
+    {
+
+        let currentList = this.state.selectedSuppliers;
+
+        this.state.supplierList.map(supplier => {
+
+            if(supplier.supplierId === selectedItem.id)
+            {
+                currentList.push(supplier);
+                this.setState({
+                    selectedSuppliers : currentList
+                })
+            }
+
+        });
+    }
+
+    onRemove = (selectedList, removedItem) =>
+    {
+        const newList = [];
+
+        this.state.selectedSuppliers.map(item => {
+
+            if(item.supplierId !== removedItem.id)
+            {
+                newList.push(item);
+            }
+
+        })
+        this.setState({
+            selectedSuppliers : newList
+        })
 
     }
 }

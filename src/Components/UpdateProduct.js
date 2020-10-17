@@ -4,6 +4,7 @@ import React from "react";
 import firebase, {storage} from "../Database/FirebaseConfig";
 import LoginState from '../Config/LoginState';
 import register_image from "../Images/hello.png";
+import {Multiselect} from "multiselect-react-dropdown";
 
 class App extends React.Component
 {
@@ -14,7 +15,7 @@ class App extends React.Component
             supplierList : [],
             id : '',
             product : '',
-            supplier : '',
+            suppliers : '',
             unit : '',
             type : '',
             currentPrice : '',
@@ -22,7 +23,8 @@ class App extends React.Component
             status : '',
             imageLink : '',
             image : '',
-            isLoading : true
+            isLoading : true,
+            newSupplierList : []
         };
     }
 
@@ -34,8 +36,11 @@ class App extends React.Component
     }
 
     render() {
+
+
+        const optionList = [];
         const options =  this.state.supplierList.map(item => {
-            return  <option value={item.supplierName}>{item.supplierName}</option>
+            optionList.push({name : item.supplierName, id : item.supplierId});
         })
 
 
@@ -65,10 +70,17 @@ class App extends React.Component
                                 </div>
 
                                 <div className="form-group">
-                                    <select name="supplier" id="supplier" value={this.state.supplier} className="form-control input" onChange={(e) => this.setState({supplier : e.target.value})}>
-                                        <option value="">Supplier</option>
-                                        {options}
-                                    </select>
+                                    <Multiselect
+                                        options={optionList} // Options to display in the dropdown
+                                        selectedValues={this.state.suppliers} // Preselected value to persist in dropdown
+                                        onSelect={this.onSelect} // Function will trigger on select event
+                                        onRemove={this.onRemove} // Function will trigger on remove event
+                                        displayValue="name" // Property name to display in the dropdown options
+                                    />
+                                    {/*<select name="supplier" id="supplier" value={this.state.supplier} className="form-control input" onChange={(e) => this.setState({supplier : e.target.value})}>*/}
+                                    {/*    <option value="">Supplier</option>*/}
+                                    {/*    {options}*/}
+                                    {/*</select>*/}
                                 </div>
 
                                 <div className="form-group">
@@ -158,7 +170,7 @@ class App extends React.Component
             alert("Please select product");
             return;
         }
-        if(this.state.supplier === "")
+        if(this.state.suppliers.length === 0)
         {
             alert("Please select supplier");
             return;
@@ -225,12 +237,30 @@ class App extends React.Component
     PutProductInTheDatabase = (imageLink) =>
     {
 
+        let newSupList = [];
+        this.state.supplierList.map(sup => {
+
+            this.state.suppliers.map(selectedSup => {
+
+                if(sup.supplierId === selectedSup.id)
+                {
+                    newSupList.push(sup);
+                }
+
+            })
+
+        })
+
+
+
+
+
         const ref = firebase.database().ref("Companies").child(LoginState.getCompanyId()).child("Products").child(this.state.id);
 
         const product = {
             productId : this.state.id,
             product : this.state.product,
-            supplier : this.state.supplier,
+            suppliers : newSupList,
             unit : this.state.unit,
             type : this.state.type,
             currentPrice: this.state.currentPrice,
@@ -285,10 +315,19 @@ class App extends React.Component
 
             const item = snapshot.val();
 
+            let list = item.suppliers;
+
+            let newList = [];
+            list.map(sup => {
+
+                newList.push({ name : sup.supplierName, id : sup.supplierId})
+
+            })
+
             this.setState({
                 id : item.productId,
                 product : item.product,
-                supplier : item.supplier,
+                suppliers : newList,
                 unit : item.unit,
                 type : item.type,
                 currentPrice : item.currentPrice,
@@ -299,6 +338,67 @@ class App extends React.Component
                 isLoading : false
             });
         });
+    }
+    onSelect = (selectedList, selectedItem) =>
+    {
+        // this.state.supplierList.map(sup => {
+        //
+        //     if(sup.supplierId === selectedItem.id)
+        //     {
+        //         let cList = this.state.newSupplierList;
+        //         cList.push(sup);
+        //
+        //         this.setState({
+        //             newSupplierList : cList
+        //         })
+        //     }
+        // });
+
+
+
+        let currentList = this.state.suppliers;
+        currentList.push(selectedItem);
+
+        this.setState({
+            suppliers : currentList
+        })
+    }
+
+    onRemove = (selectedList, removedItem) =>
+    {
+
+        // let newSupList = [];
+        //
+        // this.state.newSupplierList.map(sup => {
+        //
+        //     if(removedItem.id !== sup.supplierId)
+        //     {
+        //         newSupList.push(sup);
+        //     }
+        // })
+        //
+        // this.setState({
+        //     newSupplierList : newSupList
+        // })
+
+
+
+        let currentList = this.state.suppliers;
+        let newList = [];
+
+        this.state.suppliers.map(item => {
+
+            if(item.id !== removedItem.id)
+            {
+                newList.push(item);
+            }
+        })
+
+        this.setState({
+            suppliers : newList
+        })
+
+
     }
 }
 export default App;
