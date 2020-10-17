@@ -236,3 +236,18 @@ body {
     margin-right: auto;
     margin-bottom: 12px;
 }
+.order_div
+{
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
+.approve_btn
+{
+    /*float: right;*/
+}
+.card_con
+{
+    border-radius: 10px;
+}

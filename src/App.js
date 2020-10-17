@@ -17,6 +17,7 @@ import AddProducts from './Components/AddProducts';
 import ProductsPage from './Components/Products';
 import AddManager from './Components/Manager';
 import UpdateProduct from './Components/UpdateProduct';
+import OrdersPage from './Components/Orders';
 
 
 
@@ -107,7 +108,7 @@ class App extends React.Component{
             <Route path={'/products'} exact strict component={ProductsPage} />
           <Route path={'/login'} exact strict component={Login} />
           <Route path={'/register'} exact strict component={Register} />
-          {/*<Route path={'/orders'} exact strict component={OrdersPage} />*/}
+          <Route path={'/orders'} exact strict component={OrdersPage} />
           <Route path={'/suppliers'} exact strict component={SuppliersPage} />
             <Route path={'/manager/add'} exact strict component={AddManager} />
         </Router>
