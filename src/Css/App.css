@@ -230,3 +230,9 @@ body {
     padding: 10px;
     border-radius: 10px;
 }
+.drop_down
+{
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 12px;
+}

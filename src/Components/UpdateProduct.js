@@ -23,8 +23,7 @@ class App extends React.Component
             status : '',
             imageLink : '',
             image : '',
-            isLoading : true,
-            newSupplierList : []
+            isLoading : true
         };
     }
 
@@ -40,7 +39,7 @@ class App extends React.Component
 
         const optionList = [];
         const options =  this.state.supplierList.map(item => {
-            optionList.push({name : item.supplierName, id : item.supplierId});
+            optionList.push(item);
         })
 
 
@@ -69,18 +68,16 @@ class App extends React.Component
                                     </select>
                                 </div>
 
-                                <div className="form-group">
-                                    <Multiselect
-                                        options={optionList} // Options to display in the dropdown
-                                        selectedValues={this.state.suppliers} // Preselected value to persist in dropdown
-                                        onSelect={this.onSelect} // Function will trigger on select event
-                                        onRemove={this.onRemove} // Function will trigger on remove event
-                                        displayValue="name" // Property name to display in the dropdown options
-                                    />
-                                    {/*<select name="supplier" id="supplier" value={this.state.supplier} className="form-control input" onChange={(e) => this.setState({supplier : e.target.value})}>*/}
-                                    {/*    <option value="">Supplier</option>*/}
-                                    {/*    {options}*/}
-                                    {/*</select>*/}
+                                <div className="w-75 drop_down">
+
+                                        <Multiselect
+                                            options={optionList} // Options to display in the dropdown
+                                            selectedValues={this.state.suppliers} // Preselected value to persist in dropdown
+                                            onSelect={this.onSelect} // Function will trigger on select event
+                                            onRemove={this.onRemove} // Function will trigger on remove event
+                                            displayValue="supplierName" // Property name to display in the dropdown options
+                                        />
+
                                 </div>
 
                                 <div className="form-group">
@@ -237,30 +234,13 @@ class App extends React.Component
     PutProductInTheDatabase = (imageLink) =>
     {
 
-        let newSupList = [];
-        this.state.supplierList.map(sup => {
-
-            this.state.suppliers.map(selectedSup => {
-
-                if(sup.supplierId === selectedSup.id)
-                {
-                    newSupList.push(sup);
-                }
-
-            })
-
-        })
-
-
-
-
 
         const ref = firebase.database().ref("Companies").child(LoginState.getCompanyId()).child("Products").child(this.state.id);
 
         const product = {
             productId : this.state.id,
             product : this.state.product,
-            suppliers : newSupList,
+            suppliers : this.state.suppliers,
             unit : this.state.unit,
             type : this.state.type,
             currentPrice: this.state.currentPrice,
@@ -315,19 +295,10 @@ class App extends React.Component
 
             const item = snapshot.val();
 
-            let list = item.suppliers;
-
-            let newList = [];
-            list.map(sup => {
-
-                newList.push({ name : sup.supplierName, id : sup.supplierId})
-
-            })
-
             this.setState({
                 id : item.productId,
                 product : item.product,
-                suppliers : newList,
+                suppliers :  item.suppliers,
                 unit : item.unit,
                 type : item.type,
                 currentPrice : item.currentPrice,
@@ -341,21 +312,6 @@ class App extends React.Component
     }
     onSelect = (selectedList, selectedItem) =>
     {
-        // this.state.supplierList.map(sup => {
-        //
-        //     if(sup.supplierId === selectedItem.id)
-        //     {
-        //         let cList = this.state.newSupplierList;
-        //         cList.push(sup);
-        //
-        //         this.setState({
-        //             newSupplierList : cList
-        //         })
-        //     }
-        // });
-
-
-
         let currentList = this.state.suppliers;
         currentList.push(selectedItem);
 
@@ -367,28 +323,13 @@ class App extends React.Component
     onRemove = (selectedList, removedItem) =>
     {
 
-        // let newSupList = [];
-        //
-        // this.state.newSupplierList.map(sup => {
-        //
-        //     if(removedItem.id !== sup.supplierId)
-        //     {
-        //         newSupList.push(sup);
-        //     }
-        // })
-        //
-        // this.setState({
-        //     newSupplierList : newSupList
-        // })
-
-
-
         let currentList = this.state.suppliers;
+
         let newList = [];
 
         this.state.suppliers.map(item => {
 
-            if(item.id !== removedItem.id)
+            if(item.supplierId !== removedItem.supplierId)
             {
                 newList.push(item);
             }

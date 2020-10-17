@@ -41,7 +41,7 @@ class App extends React.Component
 
         const optionList = [];
         const options =  this.state.supplierList.map(item => {
-            optionList.push({name : item.supplierName, id : item.supplierId});
+            optionList.push(item);
         })
 
 
@@ -68,18 +68,14 @@ class App extends React.Component
                                     </select>
                                 </div>
 
-                                <div className="form-group">
+                                <div className="w-75 drop_down">
                                     <Multiselect
                                         options={optionList} // Options to display in the dropdown
                                         selectedValues={this.state.selectedSuppliers} // Preselected value to persist in dropdown
                                         onSelect={this.onSelect} // Function will trigger on select event
                                         onRemove={this.onRemove} // Function will trigger on remove event
-                                        displayValue="name" // Property name to display in the dropdown options
+                                        displayValue="supplierName" // Property name to display in the dropdown options
                                     />
-                                    {/*<select name="supplier" id="supplier" className="form-control input" onChange={(e) => this.setState({supplier : e.target.value})}>*/}
-                                    {/*    /!*<option value="">Supplier</option>*!/*/}
-                                    {/*    {options}*/}
-                                    {/*</select>*/}
                                 </div>
 
                                 <div className="form-group">
@@ -295,27 +291,32 @@ class App extends React.Component
     {
 
         let currentList = this.state.selectedSuppliers;
+        currentList.push(selectedItem);
 
-        this.state.supplierList.map(supplier => {
+        this.setState({
+            selectedSuppliers : currentList
+        })
 
-            if(supplier.supplierId === selectedItem.id)
-            {
-                currentList.push(supplier);
-                this.setState({
-                    selectedSuppliers : currentList
-                })
-            }
 
-        });
+        // this.state.supplierList.map(supplier => {
+        //
+        //     if(supplier.supplierId === selectedItem.id)
+        //     {
+        //         currentList.push(supplier);
+        //         this.setState({
+        //             selectedSuppliers : currentList
+        //         })
+        //     }
+        //
+        // });
     }
 
     onRemove = (selectedList, removedItem) =>
     {
         const newList = [];
-
         this.state.selectedSuppliers.map(item => {
 
-            if(item.supplierId !== removedItem.id)
+            if(item.supplierId !== removedItem.supplierId)
             {
                 newList.push(item);
             }
