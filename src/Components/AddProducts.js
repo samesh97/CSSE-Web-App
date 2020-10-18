@@ -65,6 +65,11 @@ class App extends React.Component
                                         <option value="Stone">Stone</option>
                                         <option value="Brick">Brick</option>
                                         <option value="Sand">Sand</option>
+                                        <option value="Tiles">Tiles</option>
+                                        <option value="Roofing Sheets">Roofing Sheets</option>
+                                        <option value="Electrical Materials">Electrical Materials</option>
+                                        <option value="Aluminium">Aluminium</option>
+                                        <option value="Nuts and Bolts">Nuts and Bolts</option>
                                     </select>
                                 </div>
 
@@ -95,6 +100,7 @@ class App extends React.Component
                                         <option value="Hardware Materials">Hardware Materials</option>
                                         <option value="Electrical">Electrical</option>
                                         <option value="Paint">Paint</option>
+                                        <option value="Paint">Other</option>
                                     </select>
                                 </div>
 

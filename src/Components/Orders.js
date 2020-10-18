@@ -29,7 +29,7 @@ class App extends React.Component
                     <h6 className="card-subtitle mb-2 text-muted">{order.status}</h6>
                     <p className="card-text">{order.product.product + " ( " + order.quantity + " " + order.unit + " )"}</p>
                     <p className="card-text">{"Cost - " + order.priceExpected + " LKR"}</p>
-                    <p className="card-text">{order.supplier.supplierName}</p>
+                    <p className="card-text">{"To - " + order.supplier.supplierName}</p>
                     <p className="card-text">{order.dateRequired}</p>
                     { order.status === "Pending" &&
                         <a className="btn btn-primary approve_btn" onClick={() => this.Update(order.orderId,"Approved")}>Approve</a>
