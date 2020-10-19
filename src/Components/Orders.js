@@ -23,7 +23,7 @@ class App extends React.Component
 
         const list = this.state.orderList.map(order => {
             return (
-                <div className="card card_con">
+                <div className="card card_con mb-1">
                 <div className="card-body">
                     <h5 className="card-title">{order.refNo}</h5>
                     <h6 className="card-subtitle mb-2 text-muted">{order.status}</h6>
@@ -73,7 +73,7 @@ class App extends React.Component
             {
                 let order = orders[i];
 
-                if(order.companyId === id && (order.status === "Pending" | order.status === "Declined" | order.status === "Approved"))
+                if(order.companyId === id)
                 {
                     orderList.push(order);
                 }
